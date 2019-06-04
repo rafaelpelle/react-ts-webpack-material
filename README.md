@@ -1,29 +1,27 @@
 # React-TS-Webpack-Material
 
-Feito a partir da implementação do Webpack do [Matheus Medeiros Gentil](https://github.com/gentil93)
+Based on [Matheus Medeiros Gentil](https://github.com/gentil93) webpack implementation.
 
-### Extras:
-* Code Split (pra cada página)
-* Lazy Load (de cara Route)
-* Material-UI v3.9
+### Added:
+* Material-UI v4.0.2
+* Code Split (dependencies and bundle)
+* Lazy Load (of each Route)
 <br/><br/>
-### Instalação
 
-Para instalar as dependências utilize:
+
+### Installation
 ```
 yarn install
 ```
 
-
-### Utilização
-
-Para iniciar o servidor de desenvolvimento utilize:
+### Usage
+To run the development server:
 ```
-npm run dev
+yarn run dev
 ```
 
-Para gerar os arquivos para utilização em produção utilize:
+
+To build the production bundle:
 ```
 npm run build
 ```
-Os arquivos estarão dentre da pasta `dist`.
