@@ -11,7 +11,7 @@ export const appTheme = createMuiTheme({
 		// },
 	},
 	typography: {
-		useNextVariants: true,
+		// useNextVariants: true,
 		// fontFamily: [
 		// 	'Montserrat',
 		// 	'"Helvetica Neue"',
