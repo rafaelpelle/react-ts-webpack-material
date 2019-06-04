@@ -1,0 +1,12 @@
+{
+	"colors": {
+		"primaryColor": "#00FF5F",
+		"secondaryColor": "#000000",
+		"black": "#000000",
+		"white": "#ffffff",
+		"nextGreen": "#00FF5F"
+	},
+	"sizes": {
+		"pageHeaderHeight": "75px"
+	}
+}
