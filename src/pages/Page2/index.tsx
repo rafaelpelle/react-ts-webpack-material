@@ -3,51 +3,44 @@ import { history } from '../../router/history'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 
-const OtherPage: React.FC<Props> = (props) => {
+const Page2: React.FC<Props> = (props) => {
 	return (
 		<div style={ { textAlign: 'center' } }>
-			<Typography
-				variant='h3'
-				style={ textStyle }
-			>
-				Other page...
+			<Typography variant='h3' style={ textStyle }>
+				Page2
 			</Typography>
 			<Button
 				color='primary'
 				variant='contained'
 				style={ buttonStyle }
-				onClick={ () => history.push('/') }
+				onClick={ () => history.push('/page3') }
 			>
-				Return to home
+				Lazy load Page3
 			</Button>
 		</div>
 	)
 }
-export default OtherPage
+export default Page2
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// STYLES ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 const textStyle = {
-	marginTop: '30vh'
+	marginTop: '30vh',
 }
 const buttonStyle = {
-	marginTop: '50px'
+	marginTop: '50px',
 }
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// INTERFACES /////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-interface OwnState {
-}
+interface OwnState {}
 
-interface OwnProps {
-}
+interface OwnProps {}
 
-interface StateProps {
-}
+interface StateProps {}
 
-interface DispatchProps {
-}
+interface DispatchProps {}
 
 type Props = StateProps & DispatchProps & OwnProps
 type State = OwnState

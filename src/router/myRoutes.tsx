@@ -2,17 +2,20 @@ import * as React from 'react'
 import { Redirect, Route } from 'react-router'
 
 const Suspense = React.Suspense
-const HomePage = React.lazy(() => import('../pages/homePage/homePage'))
-const OtherPage = React.lazy(() => import('../pages/otherPage/otherPage'))
-
+const Page1 = React.lazy(() => import('../pages/Page1'))
+const Page2 = React.lazy(() => import('../pages/Page2'))
+const Page3 = React.lazy(() => import('../pages/Page3'))
+const Page4 = React.lazy(() => import('../pages/Page4'))
 
 const MyRoutes: React.FC<Props> = (props) => {
 	return (
 		<div style={ divStyle }>
-			<Suspense fallback={ <div/> }>
-				<Route exact={ true } path='/home' render={ () => <Redirect to='/' /> } />
-				<Route exact={ true } path='/' render={ () => <HomePage /> } />
-				<Route exact={ true } path='/login' render={ () => <OtherPage /> } />
+			<Suspense fallback={ <div>Loading...</div> }>
+				<Route exact={ true } path='/' render={ () => <Redirect to='/page1' /> } />
+				<Route exact={ true } path='/page1' render={ () => <Page1 /> } />
+				<Route exact={ true } path='/page2' render={ () => <Page2 /> } />
+				<Route exact={ true } path='/page3' render={ () => <Page3 /> } />
+				<Route exact={ true } path='/page4' render={ () => <Page4 /> } />
 			</Suspense>
 		</div>
 	)
@@ -22,7 +25,7 @@ export default MyRoutes
 /////////////////////////////////////////////////////////////////
 //////////////////////////// STYLES /////////////////////////////
 /////////////////////////////////////////////////////////////////
-const divStyle = { }
+const divStyle = {}
 /////////////////////////////////////////////////////////////////
 /////////////////////////// INTERFACES //////////////////////////
 /////////////////////////////////////////////////////////////////

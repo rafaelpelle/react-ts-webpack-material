@@ -23,7 +23,7 @@ const composedWithMiddleware = composeEnhancers(
 const store = createStore(reducers, composedWithMiddleware)
 
 ReactDOM.render(
-	<Provider store={ store }>
+	<Provider store={ store as any }>
 		<MuiThemeProvider theme={ appTheme }>
 			<App/>
 		</MuiThemeProvider>
