@@ -3,9 +3,8 @@
 Based on [Matheus Medeiros Gentil](https://github.com/gentil93) webpack implementation.
 
 ### Added:
-* Material-UI v4.0.2
-* Code Split (dependencies and bundle)
-* Lazy Load (of each Route)
+* MATERIAL-UI v4
+* Code Split and Lazy Load (of each Route)
 <br/><br/>
 
 
