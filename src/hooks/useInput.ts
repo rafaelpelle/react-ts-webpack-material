@@ -1,16 +1,23 @@
 import * as React from 'react'
 import axios from 'axios'
-import { validCPF, validEmail, validPassword } from '../utils/validators'
 import {
-	removeNonNumericCharacters,
+	validCPF,
+	validEmail,
+	validBirthDate,
+	validZipCode,
+	validPassword,
+} from '../utils/validators'
+import {
+	handleCPF,
 	handleCellphone,
 	removePhoneMask,
-	handleCPF,
+	handleZipCode,
+	handleDateMask,
+	removeWhiteSpaces,
+	removeNonNumericCharacters,
 } from '../utils/stringParser'
 
-
 const useState = React.useState
-
 
 export function useInput(initialValue: string) {
 	const [value, setValue] = useState(initialValue)
@@ -20,6 +27,8 @@ export function useInput(initialValue: string) {
 	return {
 		onChange: handleChange,
 		value,
+		error: '',
+		empty: value.length < 1,
 	}
 }
 
@@ -36,6 +45,7 @@ export function usePhoneInput(initialValue: string) {
 		maxLength: 15,
 		rawValue,
 		type: 'tel',
+		empty: rawValue.length < 1,
 	}
 }
 
@@ -51,39 +61,54 @@ export function useCPFInput(initialValue: string) {
 		setRawValue(removeNonNumericCharacters(value))
 		if (value.length === cpfMaxLength) {
 			if (!validCPF(value)) {
-				setError('This is not a valid CPF')
+				setError('Este CPF não é válido.')
 			}
+		}
+	}
+	function checkCPF(e: React.FocusEvent<HTMLInputElement>) {
+		const { value } = e.target
+		if (!validCPF(value)) {
+			setError('Este CPF não é válido.')
 		}
 	}
 	return {
 		onChange: handleChange,
+		onBlur: checkCPF,
 		maxLength: cpfMaxLength,
 		value: cpf,
 		error,
 		rawValue,
+		empty: rawValue.length < 1,
 	}
 }
 
 export function usePasswordInput(initialValue: string) {
 	const [password, setPassword] = useState(initialValue)
+	const [passwordVisible, setPasswordVisible] = React.useState(false)
 	const [error, setError] = useState('')
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { value } = e.target
-		setPassword(value)
+		setPassword(removeWhiteSpaces(value))
 		setError('')
 	}
 	function checkPassword(e: React.FocusEvent<HTMLInputElement>) {
 		const { value } = e.target
 		if (!validPassword(value)) {
-			setError('The password must be 8 digits long')
+			setError('A senha deve ter 8 dígitos ou mais.')
 		}
+	}
+	function toggleVisibility() {
+		setPasswordVisible(!passwordVisible)
 	}
 	return {
 		onChange: handleChange,
 		onBlur: checkPassword,
 		value: password,
-		type: 'password',
+		type: passwordVisible ? 'text' : 'password',
+		empty: password.length < 1,
 		error,
+		passwordVisible,
+		toggleVisibility,
 	}
 }
 
@@ -93,12 +118,12 @@ export function useEmailInput(initialValue: string) {
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { value } = e.target
 		setError('')
-		setEmail(value)
+		setEmail(removeWhiteSpaces(value))
 	}
 	function checkEmail(e: React.FocusEvent<HTMLInputElement>) {
 		const { value } = e.target
 		if (!validEmail(value)) {
-			setError('This is not a valid e-mail')
+			setError('Este e-mail é inválido.')
 		}
 	}
 	return {
@@ -106,12 +131,14 @@ export function useEmailInput(initialValue: string) {
 		value: email,
 		error,
 		onBlur: checkEmail,
+		empty: email.length < 1,
 	}
 }
 
 export function useAddress() {
 	const [loading, setLoading] = useState(false)
 	const [zipcode, setZip] = useState('')
+	const [zipcodeMask, setZipMask] = useState('')
 	const [zipError, setZipError] = useState('')
 	const [street, setStreet] = useState('')
 	const [district, setDistrict] = useState('')
@@ -122,15 +149,16 @@ export function useAddress() {
 	async function handleZip(e: React.ChangeEvent<HTMLInputElement>) {
 		const { value } = e.target
 		setZip(removeNonNumericCharacters(value))
+		setZipMask(handleZipCode(value))
 		setZipError('')
-		if (value.length === 8) {
+		if (removeNonNumericCharacters(value).length === 8) {
 			try {
 				setLoading(true)
-				const request = await axios.get(`https://viacep.com.br/ws/${value}/json/`, {
-					headers: { 'x-access-token': null },
-				})
+				const request = await axios.get(
+					`https://viacep.com.br/ws/${removeNonNumericCharacters(value)}/json/`
+				)
 				if (request.data.erro === true) {
-					setZipError('This is not a valid CEP')
+					setZipError('Este CEP não é válido')
 				}
 				setLoading(false)
 				setStreet(request.data.logradouro)
@@ -154,13 +182,19 @@ export function useAddress() {
 			set(removeNonNumericCharacters(e.target.value))
 		}
 	}
+	function checkZip() {
+		!validZipCode(zipcode) && setZipError('Este CEP não é válido')
+	}
 	return {
 		zip: {
+			empty: !zipcodeMask,
 			onChange: handleZip,
-			value: zipcode,
+			rawValue: zipcode,
+			value: zipcodeMask,
 			type: 'tel',
 			error: zipError,
-			maxLength: 8,
+			onBlur: checkZip,
+			maxLength: 9,
 			loading,
 		},
 		street: {
@@ -188,5 +222,33 @@ export function useAddress() {
 			onChange: handleChange(setState),
 			value: state,
 		},
+	}
+}
+
+export function useDateInput(initialValue: string) {
+	const [rawDate, setRawDate] = useState(initialValue)
+	const [date, setDate] = useState(initialValue)
+	const [error, setError] = useState('')
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = e.target
+		const raw = removeNonNumericCharacters(value)
+		setError('')
+		setRawDate(raw)
+		setDate(handleDateMask(raw))
+	}
+	const validateDate = () => {
+		if (!validBirthDate(date) || date.length < 10) {
+			setError('Esta data é inválida.')
+		}
+	}
+
+	return {
+		onChange: handleChange,
+		onBlur: validateDate,
+		value: date,
+		rawValue: rawDate,
+		error,
+		empty: !date,
+		maxLength: 10,
 	}
 }

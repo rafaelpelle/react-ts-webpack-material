@@ -115,9 +115,9 @@ module.exports = env = {
 			},
 		}),
 		new WebpackPwaManifest({
-			name: 'MyApp',
+			name: 'MyApplication',
 			short_name: 'MyApp',
-			description: 'MyApp',
+			description: 'MyApplication',
 			background_color: '#000000',
 			theme_color: '#000000',
 			start_url: '/',

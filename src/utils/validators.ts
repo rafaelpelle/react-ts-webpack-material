@@ -1,4 +1,4 @@
-import { removeNonNumericCharacters, removePhoneMask } from './stringParser'
+import { removeNonNumericCharacters, removePhoneMask, parserDate } from './stringParser'
 import { intRegex, emailRegex } from './regex'
 
 export const validCPF = (cpf: string): boolean => {
@@ -36,30 +36,6 @@ export const validCPF = (cpf: string): boolean => {
 	return true
 }
 
-function ValidarCEP(ObjCEP: string) {
-	const cep = ObjCEP
-	alert(cep)
-	if (cep.length === 0) {
-		return null
-	}
-	if (cep.length === 8) {
-		return (
-			cep.charAt(0) +
-			cep.charAt(1) +
-			'.' +
-			cep.charAt(2) +
-			cep.charAt(3) +
-			cep.charAt(4) +
-			'-' +
-			cep.charAt(5) +
-			cep.charAt(6) +
-			cep.charAt(7)
-		)
-	} else {
-		return null
-	}
-}
-
 export const validCNPJ = (cnpj: string) => {
 	cnpj = removeNonNumericCharacters(cnpj)
 	cnpj = cnpj.replace(/[^\d]+/g, '')
@@ -71,7 +47,6 @@ export const validCNPJ = (cnpj: string) => {
 	if (cnpj.length !== 14) {
 		return false
 	}
-	// Elimina CNPJs invalidos conhecidos
 	if (/^(.)\1+$/.test(cnpj)) {
 		return false
 	}
@@ -106,6 +81,43 @@ export const validCNPJ = (cnpj: string) => {
 		return false
 	}
 	return true
+}
+
+export const validZipCode = (zipcode: string) => {
+	if (zipcode.length === 0) {
+		return null
+	}
+	if (zipcode.length === 8) {
+		return (
+			zipcode.charAt(0) +
+			zipcode.charAt(1) +
+			'.' +
+			zipcode.charAt(2) +
+			zipcode.charAt(3) +
+			zipcode.charAt(4) +
+			'-' +
+			zipcode.charAt(5) +
+			zipcode.charAt(6) +
+			zipcode.charAt(7)
+		)
+	} else {
+		return null
+	}
+}
+
+export const validBirthDate = (date: string): boolean => {
+	const { day, month, year } = parserDate(date)
+	if (day > 31 || day < 1 || (day > 29 && month === 2)) {
+		return false
+	} else if (month > 12 || month < 1) {
+		return false
+	} else if (year > new Date().getFullYear() || year < 1900) {
+		return false
+	} else if (year === new Date().getFullYear() && month > new Date().getMonth()) {
+		return false
+	} else {
+		return true
+	}
 }
 
 export const validPhone = (text: string) => {

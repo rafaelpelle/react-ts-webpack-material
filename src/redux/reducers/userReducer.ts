@@ -1,10 +1,10 @@
-import { IUserReducer } from '../../utils/interfaces'
+import { UserReducer } from '../../utils/interfaces'
 
-const INITIAL_STATE: IUserReducer = {
+const INITIAL_STATE: UserReducer = {
 	accessToken: null,
 }
 
-export default (state: IUserReducer = INITIAL_STATE, action: any) => {
+export default (state: UserReducer = INITIAL_STATE, action: any) => {
 	switch (action.type) {
 		case 'USER_LOGGED_IN':
 			return { ...state, accessToken: action.payload }

@@ -1,36 +1,35 @@
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
-export function handleCPF(cpf: string): string {
-	cpf = removeNonNumericCharacters(cpf)
-	const lastDigitsList = cpf.match(/..$/)
+export const handleCPF = (CPF: string): string => {
+	CPF = removeNonNumericCharacters(CPF)
+	const lastDigitsList = CPF.match(/..$/)
 	if (!lastDigitsList) {
-		return cpf
+		return CPF
 	}
 	const lastDigits = lastDigitsList[0]
-	return cpf.replace(/..$/, '-' + lastDigits).replace(/(\d)(?=(\d{3})+\-)/g, '$1.')
+	return CPF.replace(/..$/, '-' + lastDigits).replace(/(\d)(?=(\d{3})+\-)/g, '$1.')
 }
 
-export function removeNonNumericCharacters(text: string) {
-	return text.replace(/\D/g, '')
-}
+export const removeNonNumericCharacters = (text: string) => text.replace(/\D/g, '')
 
-export function removeNonAlphaNumericCharacters(text: string) {
-	return text.replace(/[!"\[\]{}%^&*:@~#';/.<>\\|`]/g, '')
-}
+export const removeWhiteSpaces = (text: string) => text.replace(/\s/g, '')
 
-export function handleCellphone(v: string): string {
+export const removeNonAlphaNumericCharacters = (text: string) =>
+	text.replace(/[!"\[\]{}%^&*:@~#';/.<>\\|`]/g, '')
+
+export const handleCellphone = (v: string): string => {
 	v = v.replace(/\D/g, '')
 	v = v.replace(/^(\d{2})(\d)/g, '($1) $2')
 	v = v.replace(/(\d)(\d{4})$/, '$1-$2')
 	return v
 }
 
-export function handleZipCode(zipCode: string): string {
+export const handleZipCode = (zipCode: string): string => {
 	zipCode = zipCode.replace(/\D/g, '')
 	return zipCode.replace(/(\d)(\d{3})$/, '$1-$2')
 }
 
-export function removePhoneMask(text: string): string {
+export const removePhoneMask = (text: string): string => {
 	let parsedText = text.replace(/\s/g, '')
 	parsedText = parsedText.replace('(', '')
 	parsedText = parsedText.replace(')', '')
@@ -38,22 +37,15 @@ export function removePhoneMask(text: string): string {
 	return parsedText
 }
 
-export function handleCNPJ(v: string): string {
-	// Remove tudo o que não é dígito
+export const handleCNPJ = (v: string): string => {
 	v = v.replace(/\D/g, '')
-	// Coloca ponto entre o segundo e o terceiro dígitos
 	v = v.replace(/^(\d{2})(\d)/, '$1.$2')
-	// Coloca ponto entre o quinto e o sexto dígitos
 	v = v.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-	// Coloca uma barra entre o oitavo e o nono dígitos
 	v = v.replace(/\.(\d{3})(\d)/, '.$1/$2')
-	// Coloca um hífen depois do bloco de quatro dígitos
 	return v.replace(/(\d{4})(\d)/, '$1-$2')
 }
 
-export function removeLeftZeros(text: string) {
-	return text !== '' ? Number(text).toString() : ''
-}
+export const removeLeftZeros = (text: string) => (text !== '' ? Number(text).toString() : '')
 
 export const parserDate = (text: string) => {
 	const dateArr = text.split('/')
@@ -62,4 +54,15 @@ export const parserDate = (text: string) => {
 		month: Number(dateArr[1]),
 		year: Number(dateArr[2]),
 	}
+}
+
+export const handleDateFormat = (timestamp: string | Date) => {
+	const options = { year: 'numeric', month: 'numeric', day: 'numeric' }
+	return new Date(timestamp).toLocaleDateString('pt-BR', options)
+}
+
+export const handleDateMask = (date: string) => {
+	date = date.replace(/\D/g, '')
+	date = date.replace(/^(\d{2})(\d)/, '$1/$2')
+	return date.replace(/^(\d{2})\/(\d{2})(\d)/, '$1/$2/$3')
 }

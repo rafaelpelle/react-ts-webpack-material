@@ -1,6 +1,5 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 
-
 export const appTheme = createMuiTheme({
 	palette: {
 		// primary: {
@@ -11,22 +10,38 @@ export const appTheme = createMuiTheme({
 		// },
 	},
 	typography: {
-		// useNextVariants: true,
-		// fontFamily: [
-		// 	'Montserrat',
-		// 	'"Helvetica Neue"',
-		// 	'sans-serif',
-		// 	'"Apple Color Emoji"',
-		// 	'"Segoe UI Emoji"',
-		// 	'"Segoe UI Symbol"',
-		// ].join(','),
+		fontFamily: [
+			'Montserrat',
+			'"Helvetica Neue"',
+			'sans-serif',
+			'"Apple Color Emoji"',
+			'"Segoe UI Emoji"',
+			'"Segoe UI Symbol"',
+		].join(','),
 	},
 	overrides: {
-		// MuiDrawer: {
-		// 	paperAnchorTop: {
-		// 		marginTop: customTheme.sizes.pageHeaderHeight,
-		// 	},
-		// },
+		MuiAppBar: {
+			positionFixed: {
+				// The MuiDrawer has zIndex 1300.
+				zIndex: 1301,
+				position: 'sticky',
+			},
+		},
+		MuiCircularProgress: {
+			root: {
+				display: 'block',
+			},
+		},
+		MuiSnackbarContent: {
+			message: {
+				fontWeight: 'bold',
+			},
+		},
+		MuiTooltip: {
+			tooltip: {
+				fontSize: '0.8em',
+				padding: '1em',
+			},
+		},
 	},
 })
-

@@ -2,19 +2,19 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Router, Switch } from 'react-router-dom'
-import { IRootReducer } from '../utils/interfaces'
+import { RootReducer } from '../utils/interfaces'
 import { history } from '../router/history'
 import MyRoutes from '../router/myRoutes'
 
 require('./app.css')
-
-
 
 const App: React.FC<Props> = (props) => {
 	React.useEffect(() => {
 		// listen to the service-worker registration.onupdatefound
 		// event on /src/Utils/registerSW.ts.
 		document.body.addEventListener('updateAvailable', () => {
+			console.log('Update available...')
+			console.log('Reloading...')
 			window.location.reload()
 		})
 	}, [])
@@ -30,9 +30,12 @@ const App: React.FC<Props> = (props) => {
 	)
 }
 
-const mapStateToProps = (state: IRootReducer) => ({})
+const mapStateToProps = (state: RootReducer) => ({})
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({}, dispatch)
-export default connect<StateProps, DispatchProps, OwnProps>(mapStateToProps, mapDispatchToProps)(App)
+export default connect<StateProps, DispatchProps, OwnProps>(
+	mapStateToProps,
+	mapDispatchToProps
+)(App)
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// STYLES ///////////////////////////////////
@@ -41,17 +44,13 @@ export default connect<StateProps, DispatchProps, OwnProps>(mapStateToProps, map
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// INTERFACES /////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-interface OwnState {
-}
+interface OwnState {}
 
-interface OwnProps {
-}
+interface OwnProps {}
 
-interface StateProps {
-}
+interface StateProps {}
 
-interface DispatchProps {
-}
+interface DispatchProps {}
 
 type Props = StateProps & DispatchProps & OwnProps
 type State = OwnState
