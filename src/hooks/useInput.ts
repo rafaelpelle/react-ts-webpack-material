@@ -1,13 +1,8 @@
 import * as React from 'react'
 import axios from 'axios'
+import { validCPF, validEmail, validBirthDate, validZipCode, validPassword } from '../utils/validators'
 import {
-	validCPF,
-	validEmail,
-	validBirthDate,
-	validZipCode,
-	validPassword,
-} from '../utils/validators'
-import {
+	handleMoney,
 	handleCPF,
 	handleCellphone,
 	removePhoneMask,
@@ -29,6 +24,19 @@ export function useInput(initialValue: string) {
 		value,
 		error: '',
 		empty: value.length < 1,
+	}
+}
+
+export function useMoneyInput(initialValue: string) {
+	const [value, setValue] = useState(initialValue)
+	function handleChange(newValue: string) {
+		setValue(removeNonNumericCharacters(newValue))
+	}
+	return {
+		onChange: handleChange,
+		value: `R$ ${handleMoney(value)}`,
+		placeholder: 'R$ 0,00',
+		type: 'tel',
 	}
 }
 

@@ -1,4 +1,23 @@
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+export function handleMoney(money: string) {
+	money = removeNonNumericCharacters(money)
+	money = removeLeftZeros(money)
+	if (money.length === 0) {
+		money = '000'
+	}
+	if (money.length === 1) {
+		money = '00' + money
+	}
+	if (money.length === 2) {
+		money = '0' + money
+	}
+	const lastDigitsList = money.match(/..$/)
+	if (!lastDigitsList) {
+		return money
+	}
+	
+	const lastDigits = lastDigitsList[0]
+	return money.replace(/..$/, ',' + lastDigits).replace(/(\d)(?=(\d{3})+\,)/g, '$1.')
+}
 
 export const handleCPF = (CPF: string): string => {
 	CPF = removeNonNumericCharacters(CPF)
