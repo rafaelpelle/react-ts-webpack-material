@@ -14,7 +14,7 @@ export function handleMoney(money: string) {
 	if (!lastDigitsList) {
 		return money
 	}
-	
+
 	const lastDigits = lastDigitsList[0]
 	return money.replace(/..$/, ',' + lastDigits).replace(/(\d)(?=(\d{3})+\,)/g, '$1.')
 }
@@ -76,7 +76,7 @@ export const parserDate = (text: string) => {
 }
 
 export const handleDateFormat = (timestamp: string | Date) => {
-	const options = { year: 'numeric', month: 'numeric', day: 'numeric' }
+	const options = {year: 'numeric', month: 'numeric', day: 'numeric'}
 	return new Date(timestamp).toLocaleDateString('pt-BR', options)
 }
 

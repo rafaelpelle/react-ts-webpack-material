@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { Router, Switch } from 'react-router-dom'
-import { RootReducer } from '../utils/interfaces'
-import { history } from '../router/history'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {Router, Switch} from 'react-router-dom'
+import {RootReducer} from '../utils/interfaces'
+import {history} from '../router/history'
 import MyRoutes from '../router/myRoutes'
 
 require('./app.css')
@@ -20,22 +20,17 @@ const App: React.FC<Props> = (props) => {
 	}, [])
 
 	return (
-		<Router history={ history }>
-			<div>
-				<Switch>
-					<MyRoutes />
-				</Switch>
-			</div>
+		<Router history={history}>
+			<Switch>
+				<MyRoutes />
+			</Switch>
 		</Router>
 	)
 }
 
 const mapStateToProps = (state: RootReducer) => ({})
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({}, dispatch)
-export default connect<StateProps, DispatchProps, OwnProps>(
-	mapStateToProps,
-	mapDispatchToProps
-)(App)
+export default connect<StateProps, DispatchProps, OwnProps>(mapStateToProps, mapDispatchToProps)(App)
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// STYLES ///////////////////////////////////

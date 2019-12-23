@@ -1,6 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
-import { validCPF, validEmail, validBirthDate, validZipCode, validPassword } from '../utils/validators'
+import {validCPF, validEmail, validBirthDate, validZipCode, validPassword} from '../utils/validators'
 import {
 	handleMoney,
 	handleCPF,
@@ -63,7 +63,7 @@ export function useCPFInput(initialValue: string) {
 	const [rawValue, setRawValue] = useState(initialValue)
 	const [error, setError] = useState('')
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-		const { value } = e.target
+		const {value} = e.target
 		setError('')
 		setCpf(handleCPF(value))
 		setRawValue(removeNonNumericCharacters(value))
@@ -74,7 +74,7 @@ export function useCPFInput(initialValue: string) {
 		}
 	}
 	function checkCPF(e: React.FocusEvent<HTMLInputElement>) {
-		const { value } = e.target
+		const {value} = e.target
 		if (!validCPF(value)) {
 			setError('Este CPF não é válido.')
 		}
@@ -95,12 +95,12 @@ export function usePasswordInput(initialValue: string) {
 	const [passwordVisible, setPasswordVisible] = React.useState(false)
 	const [error, setError] = useState('')
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-		const { value } = e.target
+		const {value} = e.target
 		setPassword(removeWhiteSpaces(value))
 		setError('')
 	}
 	function checkPassword(e: React.FocusEvent<HTMLInputElement>) {
-		const { value } = e.target
+		const {value} = e.target
 		if (!validPassword(value)) {
 			setError('A senha deve ter 8 dígitos ou mais.')
 		}
@@ -124,12 +124,12 @@ export function useEmailInput(initialValue: string) {
 	const [email, setEmail] = useState(initialValue)
 	const [error, setError] = useState('')
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-		const { value } = e.target
+		const {value} = e.target
 		setError('')
 		setEmail(removeWhiteSpaces(value))
 	}
 	function checkEmail(e: React.FocusEvent<HTMLInputElement>) {
-		const { value } = e.target
+		const {value} = e.target
 		if (!validEmail(value)) {
 			setError('Este e-mail é inválido.')
 		}
@@ -155,7 +155,7 @@ export function useAddress() {
 	const [complement, setComplement] = useState('')
 	const [state, setState] = useState('')
 	async function handleZip(e: React.ChangeEvent<HTMLInputElement>) {
-		const { value } = e.target
+		const {value} = e.target
 		setZip(removeNonNumericCharacters(value))
 		setZipMask(handleZipCode(value))
 		setZipError('')
@@ -238,7 +238,7 @@ export function useDateInput(initialValue: string) {
 	const [date, setDate] = useState(initialValue)
 	const [error, setError] = useState('')
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
+		const {value} = e.target
 		const raw = removeNonNumericCharacters(value)
 		setError('')
 		setRawDate(raw)

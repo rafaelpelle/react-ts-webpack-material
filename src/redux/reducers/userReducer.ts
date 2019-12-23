@@ -1,4 +1,4 @@
-import { UserReducer } from '../../utils/interfaces'
+import {UserReducer} from '../../utils/interfaces'
 
 const INITIAL_STATE: UserReducer = {
 	accessToken: null,
@@ -7,9 +7,9 @@ const INITIAL_STATE: UserReducer = {
 export default (state: UserReducer = INITIAL_STATE, action: any) => {
 	switch (action.type) {
 		case 'USER_LOGGED_IN':
-			return { ...state, accessToken: action.payload }
+			return {...state, accessToken: action.payload}
 		case 'USER_LOGGED_OUT':
-			return { ...state, accessToken: null }
+			return {...state, accessToken: null}
 		default:
 			return state
 	}

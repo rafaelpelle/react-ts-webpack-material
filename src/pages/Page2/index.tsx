@@ -1,19 +1,19 @@
 import * as React from 'react'
-import { history } from '../../router/history'
+import {history} from '../../router/history'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 
 const Page2: React.FC<Props> = (props) => {
 	return (
-		<div style={ { textAlign: 'center' } }>
-			<Typography variant='h3' style={ textStyle }>
+		<div style={{textAlign: 'center'}}>
+			<Typography variant='h3' style={textStyle}>
 				Page2
 			</Typography>
 			<Button
 				color='primary'
 				variant='contained'
-				style={ buttonStyle }
-				onClick={ () => history.push('/page3') }
+				style={buttonStyle}
+				onClick={() => history.push('/page3')}
 			>
 				Lazy load Page3
 			</Button>

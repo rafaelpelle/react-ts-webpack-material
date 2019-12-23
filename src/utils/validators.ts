@@ -1,5 +1,5 @@
-import { removeNonNumericCharacters, removePhoneMask, parserDate } from './stringParser'
-import { intRegex, emailRegex } from './regex'
+import {removeNonNumericCharacters, removePhoneMask, parserDate} from './stringParser'
+import {intRegex, emailRegex} from './regex'
 
 export const validCPF = (cpf: string): boolean => {
 	cpf = removeNonNumericCharacters(cpf)
@@ -106,7 +106,7 @@ export const validZipCode = (zipcode: string) => {
 }
 
 export const validBirthDate = (date: string): boolean => {
-	const { day, month, year } = parserDate(date)
+	const {day, month, year} = parserDate(date)
 	if (day > 31 || day < 1 || (day > 29 && month === 2)) {
 		return false
 	} else if (month > 12 || month < 1) {

@@ -28,23 +28,23 @@ const FormInput: React.FC<Props> = (props) => {
 	} = props
 	return (
 		<FormControl
-			variant={ variant }
-			style={ style }
-			fullWidth={ fullWidth }
-			error={ !!error }
-			disabled={ disabled }
+			variant={variant}
+			style={style}
+			fullWidth={fullWidth}
+			error={!!error}
+			disabled={disabled}
 		>
-			<InputLabel>{ label }</InputLabel>
+			<InputLabel>{label}</InputLabel>
 			<Input
-				name={ name || label }
-				placeholder={ placeholder }
-				type={ type }
-				value={ value }
-				onChange={ onChange }
-				onBlur={ onBlur }
-				autoFocus={ autoFocus }
-				readOnly={ readOnly }
-				inputProps={ {
+				name={name || label}
+				placeholder={placeholder}
+				type={type}
+				value={value}
+				onChange={onChange}
+				onBlur={onBlur}
+				autoFocus={autoFocus}
+				readOnly={readOnly}
+				inputProps={{
 					type,
 					maxLength,
 					onChange,
@@ -53,9 +53,9 @@ const FormInput: React.FC<Props> = (props) => {
 					onKeyPress,
 					onBlur,
 					ref,
-				} }
+				}}
 			/>
-			{ error && <FormHelperText>{ error }</FormHelperText> }
+			{error && <FormHelperText>{error}</FormHelperText>}
 		</FormControl>
 	)
 }

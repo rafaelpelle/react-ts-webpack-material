@@ -33,29 +33,22 @@ const PasswordInput: React.FC<Props> = (props) => {
 	} = props
 	return (
 		<FormControl
-			variant={ variant }
-			style={ style }
-			fullWidth={ fullWidth }
-			error={ !!error }
-			disabled={ disabled }
+			variant={variant}
+			style={style}
+			fullWidth={fullWidth}
+			error={!!error}
+			disabled={disabled}
 		>
-			<InputLabel>{ label }</InputLabel>
+			<InputLabel>{label}</InputLabel>
 			<Input
-				name={ name || label }
-				placeholder={ placeholder }
-				type={ type }
-				value={ value }
-				onChange={ onChange }
-				onBlur={ onBlur }
-				autoFocus={ autoFocus }
-				endAdornment={
-					<InputAdornment position='end'>
-						<IconButton onClick={ toggleVisibility }>
-							{ passwordVisible ? <Visibility /> : <VisibilityOff /> }
-						</IconButton>
-					</InputAdornment>
-				}
-				inputProps={ {
+				name={name || label}
+				placeholder={placeholder}
+				type={type}
+				value={value}
+				onChange={onChange}
+				onBlur={onBlur}
+				autoFocus={autoFocus}
+				inputProps={{
 					type,
 					maxLength,
 					onChange,
@@ -64,9 +57,16 @@ const PasswordInput: React.FC<Props> = (props) => {
 					onKeyPress,
 					onBlur,
 					ref,
-				} }
+				}}
+				endAdornment={
+					<InputAdornment position='end'>
+						<IconButton onClick={toggleVisibility}>
+							{passwordVisible ? <Visibility /> : <VisibilityOff />}
+						</IconButton>
+					</InputAdornment>
+				}
 			/>
-			{ error && <FormHelperText>{ error }</FormHelperText> }
+			{error && <FormHelperText>{error}</FormHelperText>}
 		</FormControl>
 	)
 }
