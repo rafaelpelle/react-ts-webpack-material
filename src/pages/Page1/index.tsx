@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { history } from '../../router/history'
-import Button from '../../components/Button'
 import Typography from '@material-ui/core/Typography'
+import Button from '../../components/Button'
+import { history } from '../../router/history'
 
 const Page1: React.FC<Props> = (props) => {
 	return (

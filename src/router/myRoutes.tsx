@@ -1,31 +1,33 @@
 import * as React from 'react'
-import {Redirect, Route} from 'react-router'
+import { Redirect, Route, Router, Switch } from 'react-router'
+import PageLoader from '../components/PageLoader'
+import { history } from './history'
+import Page1 from '../pages/Page1'
+import Page2 from '../pages/Page2'
+import Page3 from '../pages/Page3'
+import Page4 from '../pages/Page4'
 
-const Suspense = React.Suspense
-const Page1 = React.lazy(() => import('../pages/Page1'))
-const Page2 = React.lazy(() => import('../pages/Page2'))
-const Page3 = React.lazy(() => import('../pages/Page3'))
-const Page4 = React.lazy(() => import('../pages/Page4'))
+// const Page1 = React.lazy(() => import('../pages/Page1'))
+// const Page2 = React.lazy(() => import('../pages/Page2'))
+// const Page3 = React.lazy(() => import('../pages/Page3'))
+// const Page4 = React.lazy(() => import('../pages/Page4'))
 
-const MyRoutes: React.FC<Props> = (props) => {
+export default function MyRouter(props: Props) {
 	return (
-		<div style={divStyle}>
-			<Suspense fallback={<div>Loading...</div>}>
-				<Route exact={true} path='/' render={() => <Redirect to='/page1' />} />
-				<Route exact={true} path='/page1' render={() => <Page1 />} />
-				<Route exact={true} path='/page2' render={() => <Page2 />} />
-				<Route exact={true} path='/page3' render={() => <Page3 />} />
-				<Route exact={true} path='/page4' render={() => <Page4 />} />
-			</Suspense>
-		</div>
+		<Router history={ history }>
+			<Switch>
+				{ /*<React.Suspense fallback={ <PageLoader /> }>*/ }
+				<Route exact path='/' render={ () => <Redirect to='/page1' /> } />
+				<Route exact path='/page1' render={ () => <Page1 /> } />
+				<Route exact path='/page2' render={ () => <Page2 /> } />
+				<Route exact path='/page3' render={ () => <Page3 /> } />
+				<Route exact path='/page4' render={ () => <Page4 /> } />
+				{ /*</React.Suspense>*/ }
+			</Switch>
+		</Router>
 	)
 }
-export default MyRoutes
 
-/////////////////////////////////////////////////////////////////
-//////////////////////////// STYLES /////////////////////////////
-/////////////////////////////////////////////////////////////////
-const divStyle = {}
 /////////////////////////////////////////////////////////////////
 /////////////////////////// INTERFACES //////////////////////////
 /////////////////////////////////////////////////////////////////
