@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Redirect, Route, Router, Switch } from 'react-router'
-import PageLoader from '../components/PageLoader'
+// import PageLoader from '../components/PageLoader'
 import { history } from './history'
 import Page1 from '../pages/Page1'
 import Page2 from '../pages/Page2'
