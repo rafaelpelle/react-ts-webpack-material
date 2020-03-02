@@ -29,12 +29,17 @@ export const handleCPF = (CPF: string): string => {
 	return CPF.replace(/..$/, '-' + lastDigits).replace(/(\d)(?=(\d{3})+\-)/g, '$1.')
 }
 
-export const removeNonNumericCharacters = (text: string) => text.replace(/\D/g, '')
+export const removeNonNumericCharacters = (text: string) => {
+	if (text) {
+		return text.replace(/\D/g, '')
+	} else {
+		return ''
+	}
+}
 
 export const removeWhiteSpaces = (text: string) => text.replace(/\s/g, '')
 
-export const removeNonAlphaNumericCharacters = (text: string) =>
-	text.replace(/[!"\[\]{}%^&*:@~#';/.<>\\|`]/g, '')
+export const removeNonAlphaNumericCharacters = (text: string) => text.replace(/[!"\[\]{}%^&*:@~#';/.<>\\|`]/g, '')
 
 export const handleCellphone = (v: string): string => {
 	v = v.replace(/\D/g, '')
@@ -76,7 +81,7 @@ export const parserDate = (text: string) => {
 }
 
 export const handleDateFormat = (timestamp: string | Date) => {
-	const options = {year: 'numeric', month: 'numeric', day: 'numeric'}
+	const options = { year: 'numeric', month: 'numeric', day: 'numeric' }
 	return new Date(timestamp).toLocaleDateString('pt-BR', options)
 }
 
